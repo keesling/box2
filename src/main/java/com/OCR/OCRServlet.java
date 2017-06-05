@@ -22,7 +22,8 @@
  * THE SOFTWARE.
  */
 
-package com.OCR;
+package com.ocr;
+
 
 import com.google.auth.Credentials;
 import com.google.auth.oauth2.GoogleCredentials;
@@ -43,13 +44,16 @@ import com.google.cloud.vision.v1.Word;
 import com.google.protobuf.ByteString;
 //import com.sun.istack.internal.logging.Logger;
 
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 
 
 
@@ -96,10 +100,10 @@ public class OCRServlet extends HttpServlet {
 		
               //start box upload
                 //Logger.getLogger("com.box.sdk", null).setLevel(Level.OFF);
-        		
     			//GoogleCredentials credential = GoogleCredentials.getApplicationDefault();
     			IAccessTokenCache accessTokenCache = new InMemoryLRUAccessTokenCache(500);
-    			Reader reader = new FileReader("src/main/java/config2.json");
+    			ServletContext context = getServletContext();
+    			Reader reader = new FileReader(context.getRealPath("/WEB-INF/config2.json"));
     			BoxConfig boxConfig = BoxConfig.readFrom(reader);
     			
     			//CREATE APP USER
